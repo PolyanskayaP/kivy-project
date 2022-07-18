@@ -1,3 +1,4 @@
+from random import randint
 from kivy.app import App 
 from kivy.uix.label import Label
 from kivy.uix.button import Button 
@@ -11,12 +12,18 @@ Window.clearcolor = (255/255, 186/255, 3/255, 1)
 Window.title = "Приложение"
 
 class MyApp(App):
+    def __init__(self):
+        super().__init__()
+        self.label = Label(text='Моя программа\nВсё работает!')
+
+    def btn_pressed(self, *args):
+        self.label.color = (randint(0, 255)/255, randint(0, 255)/255, randint(0, 255)/255, 1)
 
     def build(self):
         box = BoxLayout()
-        btn = Button(text='Нажми на меня')        
-        label = Label(text='Моя программа\nВсё работает!')
-        box.add_widget(label)
+        btn = Button(text='Нажми на меня') 
+        btn.bind(on_press=self.btn_pressed)       
+        box.add_widget(self.label)  
         box.add_widget(btn)
 
         return box 
